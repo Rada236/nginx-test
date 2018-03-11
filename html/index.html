@@ -5,11 +5,16 @@
 <h1>Hello World</h1>
 
 <script>
-function getIP(json) {
-  document.write("My public IP address is: " + json.ip);
+if(typeof(EventSource) !== "undefined") {
+    var source = new EventSource("demo_sse.php");
+    source.onmessage = function(event) {
+        document.getElementById("result").innerHTML += event.data + "<br>";
+    };
+} else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
 }
 </script>
-<script src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
 
 </body>
 </html>
